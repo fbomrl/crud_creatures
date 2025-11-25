@@ -1,1 +1,3 @@
 git-push-personal.sh
+
+./git-push-personal.sh master
