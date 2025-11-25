@@ -16,9 +16,27 @@ func (s *MoveService) CreateMoveService(move models.Move) error {
 		return apperrors.ErrMandatoryName
 	}
 
-	moveAlreadyExist, err := s.RepoMove.MoveById(move.Id)
-	if err == nil && moveAlreadyExist != nil {
-		return apperrors.ErrMoveAlreadyExists
+	/*
+		moveAlreadyExist, err := s.RepoMove.MoveById(move.Id)
+		if err == nil && moveAlreadyExist != nil {
+			return apperrors.ErrMoveAlreadyExists
+		}
+	*/
+
+	if move.Type == "" {
+		return apperrors.ErrMandatoryType
+	}
+
+	if move.Category == "" {
+		return apperrors.ErrMandatoryCategory
+	}
+
+	if move.Power < 0 || move.Power < 1000 {
+		move.Power = 0
+	}
+
+	if move.Accuracy < 0 || move.Accuracy < 200 {
+		move.Accuracy = 0
 	}
 
 	return s.RepoMove.CreateMove(move)
