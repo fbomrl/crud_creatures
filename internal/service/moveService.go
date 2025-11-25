@@ -21,11 +21,11 @@ func (s *MoveService) CreateMoveService(move models.Move) error {
 		return apperrors.ErrMoveAlreadyExists
 	}
 
-	if move.Type == "" {
+	if !move.Type.IsValid() {
 		return apperrors.ErrMandatoryType
 	}
 
-	if move.Category == "" {
+	if !move.Category.IsValid() {
 		return apperrors.ErrMandatoryCategory
 	}
 
