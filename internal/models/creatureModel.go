@@ -5,7 +5,7 @@ type Creature struct {
 	IdGeneral          int     `json:"id_general"`    /*id do general do Creature*/
 	IdRegion           int     `json:"id_region"`     /*id daa região do Creature*/
 	RegionNumber       int     `json:"region_number"` /*número da região do Creature*/
-	Name               string  `json:"region_number"`
+	Name               string  `json:"name"`
 	TypePrimary        string  `json:"type_primary"`
 	TypeSecondary      string  `json:"type_secondary"`
 	Ability            string  `json:"ability"`
