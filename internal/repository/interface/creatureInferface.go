@@ -2,7 +2,7 @@ package repository
 
 import "crud_creatures/internal/models"
 
-type CreatureRepository interface {
+type CreatureRepositoryInterface interface {
 	CreateCreature(creatures models.Creature) error
 	DeleteCreature(creatures models.Creature) error
 	UpdateCreature(creatures models.Creature) error
