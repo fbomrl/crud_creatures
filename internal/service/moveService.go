@@ -3,11 +3,11 @@ package service
 import (
 	apperrors "crud_creatures/internal/errors"
 	"crud_creatures/internal/models"
-	"crud_creatures/internal/repository"
+	repositoryinterface "crud_creatures/internal/repository/interface"
 )
 
 type MoveService struct {
-	RepoMove repository.MovesRepository
+	RepoMove repositoryinterface.MovesRepositoryInterface
 }
 
 func (s *MoveService) CreateMoveService(move models.Move) error {

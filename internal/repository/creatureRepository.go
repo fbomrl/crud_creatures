@@ -5,11 +5,11 @@ import (
 	"database/sql"
 )
 
-type creatureRepository struct {
+type CreatureRepository struct {
 	DB *sql.DB
 }
 
-func (repo *creatureRepository) CreateCreature(creature *models.Creature) error {
+func (repo *CreatureRepository) CreateCreature(creature models.Creature) error {
 	_, err := repo.DB.Exec(
 		"INSERT INTO CREATURE (id_general, id_region, region_number, name, type_primary, type_secondary, ability, ability_description, species, height, weight, habitat, feeding, evolution, description) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 		&creature.IdGeneral,
@@ -31,7 +31,7 @@ func (repo *creatureRepository) CreateCreature(creature *models.Creature) error 
 	return err
 }
 
-func (repo *creatureRepository) DeleteCreature(creature *models.Creature) error {
+func (repo *CreatureRepository) DeleteCreature(creature *models.Creature) error {
 	_, err := repo.DB.Exec(
 		"DELETE FROM CREATURE  WHERE ID = ?",
 		&creature.Id,
@@ -39,7 +39,7 @@ func (repo *creatureRepository) DeleteCreature(creature *models.Creature) error 
 	return err
 }
 
-func (repo *creatureRepository) UpdateCreature(creature *models.Creature) error {
+func (repo *CreatureRepository) UpdateCreature(creature *models.Creature) error {
 	_, err := repo.DB.Exec(
 		"UPDATE CREATURE SET id_general = ?, id_region = ?, region_number = ?, name = ?, type_primary = ?, type_secondary = ?, ability = ?, ability_description = ?, species = ?, height = ?, weight = ?, habitat = ?, feeding = ?, evolution = ?, description = ? WHERE id = ?",
 		&creature.IdGeneral,
@@ -61,7 +61,7 @@ func (repo *creatureRepository) UpdateCreature(creature *models.Creature) error 
 	return err
 }
 
-func (repo *creatureRepository) FindCreatureById(id int) (*models.Creature, error) {
+func (repo *CreatureRepository) FindCreatureById(id int) (*models.Creature, error) {
 	var creature models.Creature
 	err := repo.DB.QueryRow(
 		"SELECT id, id_general, id_region, region_number, name, type_primary, type_secondary, ability, ability_description, species, height, weight, habitat, feeding, evolution, description FROM CREATURE WHERE id = ?", id).Scan(
@@ -88,7 +88,7 @@ func (repo *creatureRepository) FindCreatureById(id int) (*models.Creature, erro
 	return &creature, nil
 }
 
-func (repo *creatureRepository) FindCreatureByName(name string) (*models.Creature, error) {
+func (repo *CreatureRepository) FindCreatureByName(name string) (*models.Creature, error) {
 	var creatureName models.Creature
 	err := repo.DB.QueryRow(
 		"SELECT name WHERE name = ?", name).Scan(
@@ -102,7 +102,7 @@ func (repo *creatureRepository) FindCreatureByName(name string) (*models.Creatur
 	return &creatureName, nil
 }
 
-func (repo *creatureRepository) FindAllCreatures() ([]*models.Creature, error) {
+func (repo *CreatureRepository) FindAllCreatures() ([]*models.Creature, error) {
 	res, err := repo.DB.Query("SELECT id, id_general, id_region, region_number, name, type_primary, type_secondary, ability, ability_description, species, height, weight, habitat, feeding, evolution, description FROM CREATURE")
 	if err != nil {
 		return nil, err
