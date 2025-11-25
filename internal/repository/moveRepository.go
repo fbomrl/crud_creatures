@@ -25,7 +25,7 @@ func (repo *MovesRepository) CreateMove(moves models.Move) error {
 func (repo *MovesRepository) DeleteMove(moves models.Move) error {
 	_, err := repo.DB.Exec(
 		"DELETE FROM MOVES WHERE id = ?",
-		moves.Id,
+		&moves.Id,
 	)
 	return err
 }
