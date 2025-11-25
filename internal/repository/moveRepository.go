@@ -43,7 +43,7 @@ func (repo *MovesRepository) UpdateMove(moves models.Move) error {
 	return err
 }
 
-func (repo *MovesRepository) MoveById(id int) (*models.Move, error) {
+func (repo *MovesRepository) FindMoveById(id int) (*models.Move, error) {
 	var moves models.Move
 	err := repo.DB.QueryRow(
 		"SELECT id, name, type, category, power, accuracy, description FROM MOVES WHERE id = ?", id).Scan(
