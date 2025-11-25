@@ -88,6 +88,20 @@ func (repo *creatureRepository) FindCreatureById(id int) (*models.Creature, erro
 	return &creature, nil
 }
 
+func (repo *creatureRepository) FindCreatureByName(name string) (*models.Creature, error) {
+	var creatureName models.Creature
+	err := repo.DB.QueryRow(
+		"SELECT name WHERE name = ?", name).Scan(
+		&creatureName.Name,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &creatureName, nil
+}
+
 func (repo *creatureRepository) FindAllCreatures() ([]*models.Creature, error) {
 	res, err := repo.DB.Query("SELECT id, id_general, id_region, region_number, name, type_primary, type_secondary, ability, ability_description, species, height, weight, habitat, feeding, evolution, description FROM CREATURE")
 	if err != nil {
