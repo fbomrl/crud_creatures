@@ -19,6 +19,7 @@ func (repo *MovesRepository) CreateMove(moves models.Move) error {
 		&moves.Accuracy,
 		&moves.Description,
 	)
+
 	return err
 }
 
@@ -27,6 +28,7 @@ func (repo *MovesRepository) DeleteMove(moves models.Move) error {
 		"DELETE FROM MOVES WHERE id = ?",
 		&moves.Id,
 	)
+
 	return err
 }
 
@@ -55,10 +57,26 @@ func (repo *MovesRepository) FindMoveById(id int) (*models.Move, error) {
 		&moves.Accuracy,
 		&moves.Description,
 	)
+
 	if err != nil {
 		return nil, err
 	}
+
 	return &moves, nil
+}
+
+func (repo *MovesRepository) FindMoveByName(name string) (*models.Move, error) {
+	var moveName models.Move
+	err := repo.DB.QueryRow(
+		"SELECT name FROM MOVES WHERE name = ?", name).Scan(
+		&moveName.Name,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &moveName, nil
 }
 
 func (repo *MovesRepository) FindAllMoves() ([]*models.Move, error) {
