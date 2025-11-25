@@ -11,15 +11,17 @@ type CreatureRepository struct {
 
 func (repo *CreatureRepository) CreateCreature(creature models.Creature) error {
 	_, err := repo.DB.Exec(
-		"INSERT INTO CREATURE (id_general, id_region, region_number, name, type_primary, type_secondary, ability, ability_description, species, height, weight, habitat, feeding, evolution, description) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+		"INSERT INTO CREATURE (id_general, id_region, region_number, name, type_primary, type_secondary, ability_attack, ability_attack_desc, ability_def, ability_def_desc, species, height, weight, habitat, feeding, evolution, description, inspiration) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 		&creature.IdGeneral,
 		&creature.IdRegion,
 		&creature.RegionNumber,
 		&creature.Name,
 		&creature.TypePrimary,
 		&creature.TypeSecondary,
-		&creature.Ability,
-		&creature.AbilityDescription,
+		&creature.AbilityAtack,
+		&creature.AbilityAtackDesc,
+		&creature.AbilityDef,
+		&creature.AbilityDefDesc,
 		&creature.Species,
 		&creature.Height,
 		&creature.Weight,
@@ -27,6 +29,7 @@ func (repo *CreatureRepository) CreateCreature(creature models.Creature) error {
 		&creature.Feeding,
 		&creature.Evolution,
 		&creature.Description,
+		&creature.Inspiration,
 	)
 	return err
 }
@@ -41,15 +44,17 @@ func (repo *CreatureRepository) DeleteCreature(creature *models.Creature) error 
 
 func (repo *CreatureRepository) UpdateCreature(creature *models.Creature) error {
 	_, err := repo.DB.Exec(
-		"UPDATE CREATURE SET id_general = ?, id_region = ?, region_number = ?, name = ?, type_primary = ?, type_secondary = ?, ability = ?, ability_description = ?, species = ?, height = ?, weight = ?, habitat = ?, feeding = ?, evolution = ?, description = ? WHERE id = ?",
+		"UPDATE CREATURE SET id_general = ?, id_region = ?, region_number = ?, name = ?, type_primary = ?, type_secondary = ?, ability_attack = ?, ability_attack_desc = ?, ability_def = ?, ability_def_desc = ?, species = ?, height = ?, weight = ?, habitat = ?, feeding = ?, evolution = ?, description = ?, inspiration = ? WHERE id = ?",
 		&creature.IdGeneral,
 		&creature.IdRegion,
 		&creature.RegionNumber,
 		&creature.Name,
 		&creature.TypePrimary,
 		&creature.TypeSecondary,
-		&creature.Ability,
-		&creature.AbilityDescription,
+		&creature.AbilityAtack,
+		&creature.AbilityAtackDesc,
+		&creature.AbilityDef,
+		&creature.AbilityDefDesc,
 		&creature.Species,
 		&creature.Height,
 		&creature.Weight,
@@ -57,6 +62,8 @@ func (repo *CreatureRepository) UpdateCreature(creature *models.Creature) error 
 		&creature.Feeding,
 		&creature.Evolution,
 		&creature.Description,
+		&creature.Inspiration,
+		&creature.Id,
 	)
 	return err
 }
@@ -64,7 +71,7 @@ func (repo *CreatureRepository) UpdateCreature(creature *models.Creature) error 
 func (repo *CreatureRepository) FindCreatureById(id int) (*models.Creature, error) {
 	var creature models.Creature
 	err := repo.DB.QueryRow(
-		"SELECT id, id_general, id_region, region_number, name, type_primary, type_secondary, ability, ability_description, species, height, weight, habitat, feeding, evolution, description FROM CREATURE WHERE id = ?", id).Scan(
+		"SELECT id, id_general, id_region, region_number, name, type_primary, type_secondary, ability_attack, ability_attack_desc, ability_def, ability_def_desc, species, height, weight, habitat, feeding, evolution, description, inspiration FROM CREATURE WHERE id = ?", id).Scan(
 		&creature.Id,
 		&creature.IdGeneral,
 		&creature.IdRegion,
@@ -72,8 +79,10 @@ func (repo *CreatureRepository) FindCreatureById(id int) (*models.Creature, erro
 		&creature.Name,
 		&creature.TypePrimary,
 		&creature.TypeSecondary,
-		&creature.Ability,
-		&creature.AbilityDescription,
+		&creature.AbilityAtack,
+		&creature.AbilityAtackDesc,
+		&creature.AbilityDef,
+		&creature.AbilityDefDesc,
 		&creature.Species,
 		&creature.Height,
 		&creature.Weight,
@@ -81,6 +90,7 @@ func (repo *CreatureRepository) FindCreatureById(id int) (*models.Creature, erro
 		&creature.Feeding,
 		&creature.Evolution,
 		&creature.Description,
+		&creature.Inspiration,
 	)
 	if err != nil {
 		return nil, err
@@ -103,7 +113,7 @@ func (repo *CreatureRepository) FindCreatureByName(name string) (*models.Creatur
 }
 
 func (repo *CreatureRepository) FindAllCreatures() ([]*models.Creature, error) {
-	res, err := repo.DB.Query("SELECT id, id_general, id_region, region_number, name, type_primary, type_secondary, ability, ability_description, species, height, weight, habitat, feeding, evolution, description FROM CREATURE")
+	res, err := repo.DB.Query("SELECT id, id_general, id_region, region_number, name, type_primary, type_secondary, ability_attack, ability_attack_desc, ability_def, ability_def_desc, species, height, weight, habitat, feeding, evolution, description, inspiration FROM CREATURE")
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +132,10 @@ func (repo *CreatureRepository) FindAllCreatures() ([]*models.Creature, error) {
 			&creature.Name,
 			&creature.TypePrimary,
 			&creature.TypeSecondary,
-			&creature.Ability,
-			&creature.AbilityDescription,
+			&creature.AbilityAtack,
+			&creature.AbilityAtackDesc,
+			&creature.AbilityDef,
+			&creature.AbilityDefDesc,
 			&creature.Species,
 			&creature.Height,
 			&creature.Weight,
@@ -131,6 +143,7 @@ func (repo *CreatureRepository) FindAllCreatures() ([]*models.Creature, error) {
 			&creature.Feeding,
 			&creature.Evolution,
 			&creature.Description,
+			&creature.Inspiration,
 		)
 		if err != nil {
 			return nil, err
