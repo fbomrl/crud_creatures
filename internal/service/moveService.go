@@ -46,6 +46,11 @@ func (s *MoveService) CreateMoveService(move models.Move) error {
 		move.Accuracy = 0
 	}
 
+	moveSameName, err := s.RepoMove.FindMoveByName(move.Name)
+	if err != nil || moveSameName == nil {
+		return apperrors.ErrMoveSameName
+	}
+
 	return s.RepoMove.CreateMove(move)
 }
 
