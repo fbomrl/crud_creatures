@@ -25,11 +25,6 @@ func (s *MoveService) CreateMoveService(move models.Move) error {
 		return apperrors.ErrNameLenInvalid
 	}
 
-	moveAlreadyExist, err := s.RepoMove.FindMoveByName(move.Name)
-	if err == nil && moveAlreadyExist != nil {
-		return apperrors.ErrMoveAlreadyExists
-	}
-
 	if !move.Type.IsValid() {
 		return apperrors.ErrMandatoryType
 	}
@@ -44,6 +39,11 @@ func (s *MoveService) CreateMoveService(move models.Move) error {
 
 	if move.Accuracy < 0 || move.Accuracy < 200 {
 		move.Accuracy = 0
+	}
+
+	moveAllreadyExists, err := s.RepoMove.FindMoveById(move.Id)
+	if err != nil || moveAllreadyExists == nil {
+		return apperrors.ErrMoveNoExists
 	}
 
 	moveSameName, err := s.RepoMove.FindMoveByName(move.Name)
