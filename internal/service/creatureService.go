@@ -123,3 +123,23 @@ func (s *CreatureService) UpdateCreatureService(creature models.Creature) error 
 
 	return s.RepoCreature.UpdateCreature(creature)
 }
+
+func (s *CreatureService) FindCreatureByIdService(id int) (*models.Creature, error) {
+	creatureId, err := s.RepoCreature.FindCreatureById(id)
+
+	if err != nil || creatureId == nil {
+		return nil, apperrors.ErrCreatureNoExists
+	}
+
+	return creatureId, nil
+}
+
+func (s *CreatureService) FindCreatureByNameService(name string) (*models.Creature, error) {
+	creatureName, err := s.RepoCreature.FindCreatureByName(name)
+
+	if err != nil || creatureName == nil {
+		return nil, apperrors.ErrCreatureNoExists
+	}
+
+	return creatureName, nil
+}
