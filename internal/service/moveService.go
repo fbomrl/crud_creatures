@@ -33,21 +33,16 @@ func (s *MoveService) CreateMoveService(move models.Move) error {
 		return apperrors.ErrMandatoryCategory
 	}
 
-	if move.Power < 0 || move.Power < 1000 {
+	if move.Power < 0 || move.Power > 1000 {
 		move.Power = 0
 	}
 
-	if move.Accuracy < 0 || move.Accuracy < 200 {
+	if move.Accuracy < 0 || move.Accuracy > 200 {
 		move.Accuracy = 0
 	}
 
-	moveAllreadyExists, err := s.RepoMove.FindMoveById(move.Id)
-	if err != nil || moveAllreadyExists == nil {
-		return apperrors.ErrMoveNoExists
-	}
-
 	moveSameName, err := s.RepoMove.FindMoveByName(move.Name)
-	if err != nil || moveSameName == nil {
+	if err == nil || moveSameName != nil {
 		return apperrors.ErrMoveSameName
 	}
 
@@ -90,21 +85,16 @@ func (s *MoveService) UpdateMoveService(move models.Move) error {
 		return apperrors.ErrMandatoryCategory
 	}
 
-	if move.Power < 0 || move.Power < 1000 {
+	if move.Power < 0 || move.Power > 1000 {
 		move.Power = 0
 	}
 
-	if move.Accuracy < 0 || move.Accuracy < 200 {
+	if move.Accuracy < 0 || move.Accuracy > 200 {
 		move.Accuracy = 0
 	}
 
-	moveAllreadyExists, err := s.RepoMove.FindMoveById(move.Id)
-	if err != nil || moveAllreadyExists == nil {
-		return apperrors.ErrMoveNoExists
-	}
-
 	moveSameName, err := s.RepoMove.FindMoveByName(move.Name)
-	if err != nil || moveSameName == nil {
+	if err == nil && moveSameName != nil && moveSameName.Id != move.Id {
 		return apperrors.ErrMoveSameName
 	}
 

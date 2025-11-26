@@ -15,7 +15,7 @@ type Creature struct {
 	AbilityDef       string     `json:"AbilityDef"`
 	AbilityDefDesc   string     `json:"ability_def_desc"`
 	Species          string     `json:"species"`
-	Height           float64    `json:"height"`
+	Height           int        `json:"height"`
 	Weight           float64    `json:"weight"`
 	Habitat          string     `json:"habitat"`
 	Feeding          string     `json:"feeding"`

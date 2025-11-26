@@ -22,7 +22,13 @@ var (
 
 /* CREATURES ERRORS */
 var (
-	ErrCreatureAlreadyExists = errors.New("criatura já existe")
+	ErrCreatureAlreadyExists      = errors.New("criatura já existe")
+	ErrMandatoryIdGeneralOrRegion = errors.New("id geral/id da região é obrigatório")
+	ErrNegativeId                 = errors.New("id geral/id da região não pode ser negativo")
+	ErrCreatureSameName           = errors.New("já existe uma criatura com o mesmo nome")
+	ErrNegativeHeightProhibited   = errors.New("altura não pode ser negativa")
+	ErrNegativeWeightProhibited   = errors.New("peso não pode ser negativo")
+	ErrCreatureNoExists           = errors.New("criatura não existe no banco de dados")
 )
 
 /* REGION ERRORS */

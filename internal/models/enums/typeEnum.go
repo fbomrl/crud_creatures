@@ -3,6 +3,7 @@ package enums
 type Type int
 
 const (
+	None    Type = -1
 	Neutral Type = iota
 	Fire
 	Combat
