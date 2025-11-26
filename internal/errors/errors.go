@@ -16,6 +16,8 @@ var (
 	ErrMandatoryCategory = errors.New("categoria do movimento é obrigatório")
 	ErrMoveAlreadyExists = errors.New("movimento já existe")
 	ErrMoveNoExists      = errors.New("movimento não existe no banco de dados")
+	ErrMoveListEmpty     = errors.New("lista de movimentos está vazia")
+	ErrMoveSameName      = errors.New("já existe um movimento com o mesmo nome")
 )
 
 /* CREATURES ERRORS */

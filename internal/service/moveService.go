@@ -93,5 +93,42 @@ func (s *MoveService) UpdateMoveService(move models.Move) error {
 		move.Accuracy = 0
 	}
 
+	moveAllreadyExists, err := s.RepoMove.FindMoveById(move.Id)
+	if err != nil || moveAllreadyExists == nil {
+		return apperrors.ErrMoveNoExists
+	}
+
+	moveSameName, err := s.RepoMove.FindMoveByName(move.Name)
+	if err != nil || moveSameName == nil {
+		return apperrors.ErrMoveSameName
+	}
+
 	return s.RepoMove.UpdateMove(move)
+}
+
+func (s *MoveService) FindMoveByIdService(id int) (*models.Move, error) {
+	moveId, err := s.RepoMove.FindMoveById(id)
+	if err != nil || moveId == nil {
+		return nil, apperrors.ErrMoveNoExists
+	}
+
+	return moveId, nil
+}
+
+func (s *MoveService) FindMoveByNameService(name string) (*models.Move, error) {
+	moveName, err := s.RepoMove.FindMoveByName(name)
+	if err != nil || moveName == nil {
+		return nil, apperrors.ErrMoveNoExists
+	}
+
+	return moveName, nil
+}
+
+func (s *MoveService) FindAllMovesService() ([]*models.Move, error) {
+	allMoves, err := s.RepoMove.FindAllMoves()
+	if err != nil || allMoves == nil {
+		return nil, apperrors.ErrMoveNoExists
+	}
+
+	return allMoves, nil
 }
