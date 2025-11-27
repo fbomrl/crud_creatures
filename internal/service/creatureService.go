@@ -143,3 +143,13 @@ func (s *CreatureService) FindCreatureByNameService(name string) (*models.Creatu
 
 	return creatureName, nil
 }
+
+func (s *CreatureService) FindAllCreaturesService() ([]*models.Creature, error) {
+	allCreatures, err := s.RepoCreature.FindAllCreatures()
+
+	if err != nil || allCreatures == nil {
+		return nil, apperrors.ErrCreatureListEmpty
+	}
+
+	return allCreatures, nil
+}
