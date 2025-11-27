@@ -3,24 +3,30 @@ package enums
 type Category int
 
 const (
-	Physical Category = iota
-	Special
+	PhysicalAttack Category = iota
+	SpecialAttack
+	PhysicalDefense
+	SpecialDefense
 	Status
 )
 
 func (t Category) String() string {
 	switch t {
-	case Physical:
-		return "Physical"
-	case Special:
-		return "Special"
+	case PhysicalAttack:
+		return "Atk Fís"
+	case SpecialAttack:
+		return "Atk Esp"
+	case PhysicalDefense:
+		return "Def Fís"
+	case SpecialDefense:
+		return "Def Esp"
 	case Status:
 		return "Status"
 	default:
-		return "Unknown"
+		return "Desconhecido"
 	}
 }
 
 func (t Category) IsValid() bool {
-	return t >= Physical && t <= Status
+	return t >= PhysicalAttack && t <= Status
 }
