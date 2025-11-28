@@ -1,5 +1,6 @@
 # Scripts pessoais
 git-push-personal.sh
+git-pull-personal.sh
 
 # Binários compilados
 *.exe
