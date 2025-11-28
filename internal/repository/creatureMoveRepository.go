@@ -10,7 +10,7 @@ type CreatureMoveRepository struct {
 
 func (repo *CreatureMoveRepository) AddMoveToCreature(creatureId int, moveId int) error {
 	_, err := repo.DB.Exec(
-		"INSERT INTO CREATURE_MOVE (id_creature, id_move) VALUES (?,?)",
+		"INSERT INTO CREATURE_MOVE (id_creature, id_move) VALUES (?, ?)",
 		creatureId,
 		moveId,
 	)
@@ -19,33 +19,37 @@ func (repo *CreatureMoveRepository) AddMoveToCreature(creatureId int, moveId int
 }
 
 func (repo *CreatureMoveRepository) CreatureExists(id int) (bool, error) {
-	var creatureExists
-	err := r.DB.QueryRow(
+	var exists int
+
+	err := repo.DB.QueryRow(
 		"SELECT 1 FROM CREATURE WHERE id = ? LIMIT 1",
 		id,
-	).Scan(&creatureExists)
-	
+	).Scan(&exists)
+
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return, err
+			return false, nil
 		}
-	}	
-
-	return err, nil
-}
-
-func (repo *CreatureMoveRepository) MoveExists(id int) (bool, err) {
-	var moveExists
-	err := r.DB.QueryRow(
-		"SELECT 1 FROM MOVES WHERE id = ? LIMIT 1",
-		id,
-	)Scan(&moveExists)
-
-	if err != nil {
-		if err ==  sql.ErrNoRows {
-			return, err
-		}
+		return false, err
 	}
 
-	return err, nil
+	return true, nil
+}
+
+func (repo *CreatureMoveRepository) MoveExists(id int) (bool, error) {
+	var exists int
+
+	err := repo.DB.QueryRow(
+		"SELECT 1 FROM MOVES WHERE id = ? LIMIT 1",
+		id,
+	).Scan(&exists)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return false, nil
+		}
+		return false, err
+	}
+
+	return true, nil
 }
