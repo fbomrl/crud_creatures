@@ -1,3 +1,37 @@
+# Scripts pessoais
 git-push-personal.sh
 
-./git-push-personal.sh master
+# Binários compilados
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Arquivos de build do Go
+*.test
+*.out
+/vendor/
+go.work
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.log
+*.tmp
+tmp/
+
+# Env
+.env
+.env.local
