@@ -10,7 +10,7 @@ type CreatureMoveRepository struct {
 
 func (repo *CreatureMoveRepository) AddMoveToCreature(creatureId int, moveId int) error {
 	_, err := repo.DB.Exec(
-		"INSERT INTO CREATURE_MOVE (id_creature, id_move) VALUES (?, ?)",
+		"INSERT INTO CREATURE_MOVE (id_creature, id_move) VALUES (@p1, @p2)",
 		creatureId,
 		moveId,
 	)
@@ -22,7 +22,7 @@ func (repo *CreatureMoveRepository) CreatureExists(id int) (bool, error) {
 	var exists int
 
 	err := repo.DB.QueryRow(
-		"SELECT 1 FROM CREATURE WHERE id = ? LIMIT 1",
+		"SELECT TOP 1 1 FROM CREATURE WHERE id = @p1",
 		id,
 	).Scan(&exists)
 
@@ -40,7 +40,7 @@ func (repo *CreatureMoveRepository) MoveExists(id int) (bool, error) {
 	var exists int
 
 	err := repo.DB.QueryRow(
-		"SELECT 1 FROM MOVES WHERE id = ? LIMIT 1",
+		"SELECT TOP 1 1 FROM MOVES WHERE id = @p1",
 		id,
 	).Scan(&exists)
 
@@ -58,10 +58,10 @@ func (repo *CreatureMoveRepository) CountMovesByCreature(idCreature int) (int, e
 	var qntdMoves int
 
 	err := repo.DB.QueryRow(`
-        SELECT COUNT(*) 
-        FROM CREATURE_MOVE
-        WHERE id_creature = ?
-    `, idCreature).Scan(&qntdMoves)
+		SELECT COUNT(*) 
+		FROM CREATURE_MOVE
+		WHERE id_creature = @p1
+	`, idCreature).Scan(&qntdMoves)
 
 	if err != nil {
 		return 0, err

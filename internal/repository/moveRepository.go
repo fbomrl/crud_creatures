@@ -11,13 +11,13 @@ type MovesRepository struct {
 
 func (repo *MovesRepository) CreateMove(moves models.Move) error {
 	_, err := repo.DB.Exec(
-		"INSERT INTO MOVES (name, type, category, power, accuracy, description) VALUES (?,?,?,?,?,?)",
-		&moves.Name,
-		&moves.Type,
-		&moves.Category,
-		&moves.Power,
-		&moves.Accuracy,
-		&moves.Description,
+		"INSERT INTO MOVES (name, type, category, power, accuracy, description) VALUES (@p1, @p2, @p3, @p4, @p5, @p6)",
+		moves.Name,
+		moves.Type,
+		moves.Category,
+		moves.Power,
+		moves.Accuracy,
+		moves.Description,
 	)
 
 	return err
@@ -25,8 +25,8 @@ func (repo *MovesRepository) CreateMove(moves models.Move) error {
 
 func (repo *MovesRepository) DeleteMove(moves models.Move) error {
 	_, err := repo.DB.Exec(
-		"DELETE FROM MOVES WHERE id = ?",
-		&moves.Id,
+		"DELETE FROM MOVES WHERE id = @p1",
+		moves.Id,
 	)
 
 	return err
@@ -34,13 +34,14 @@ func (repo *MovesRepository) DeleteMove(moves models.Move) error {
 
 func (repo *MovesRepository) UpdateMove(moves models.Move) error {
 	_, err := repo.DB.Exec(
-		"UPDATE MOVES SET name = ?, type = ?, category = ?, power = ?, accuracy = ?, description = ? WHERE id = ?",
-		&moves.Name,
-		&moves.Type,
-		&moves.Category,
-		&moves.Power,
-		&moves.Accuracy,
-		&moves.Description,
+		"UPDATE MOVES SET name = @p1, type = @p2, category = @p3, power = @p4, accuracy = @p5, description = @p6 WHERE id = @p7",
+		moves.Name,
+		moves.Type,
+		moves.Category,
+		moves.Power,
+		moves.Accuracy,
+		moves.Description,
+		moves.Id, // ← estava faltando isso
 	)
 	return err
 }
@@ -48,7 +49,8 @@ func (repo *MovesRepository) UpdateMove(moves models.Move) error {
 func (repo *MovesRepository) FindMoveById(id int) (*models.Move, error) {
 	var moves models.Move
 	err := repo.DB.QueryRow(
-		"SELECT id, name, type, category, power, accuracy, description FROM MOVES WHERE id = ?", id).Scan(
+		"SELECT id, name, type, category, power, accuracy, description FROM MOVES WHERE id = @p1", id,
+	).Scan(
 		&moves.Id,
 		&moves.Name,
 		&moves.Type,
@@ -68,7 +70,8 @@ func (repo *MovesRepository) FindMoveById(id int) (*models.Move, error) {
 func (repo *MovesRepository) FindMoveByName(name string) (*models.Move, error) {
 	var moveName models.Move
 	err := repo.DB.QueryRow(
-		"SELECT name FROM MOVES WHERE name = ?", name).Scan(
+		"SELECT name FROM MOVES WHERE name = @p1", name,
+	).Scan(
 		&moveName.Name,
 	)
 
@@ -80,7 +83,9 @@ func (repo *MovesRepository) FindMoveByName(name string) (*models.Move, error) {
 }
 
 func (repo *MovesRepository) FindAllMoves() ([]*models.Move, error) {
-	res, err := repo.DB.Query("SELECT id, name, type, category, power, accuracy, description FROM MOVES")
+	res, err := repo.DB.Query(
+		"SELECT id, name, type, category, power, accuracy, description FROM MOVES",
+	)
 	if err != nil {
 		return nil, err
 	}
