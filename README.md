@@ -27,9 +27,13 @@ crud_creatures/
 │   └── api/
 │       └── main.go              # Entry point da aplicação
 ├── internal/
+│   ├── sqlserver.go             # Conexão com SQL Server (ou MySQL)
 │   ├── errors/
 │   │   └── errors.go            # Erros customizados da aplicação
 │   ├── handlers/                # HTTP handlers (controllers)
+│   │   ├── interface/
+│   │   │   ├── creatureInferface.go
+│   │   │   └── moveInterface.go
 │   ├── models/
 │   │   ├── creatureModel.go     # Modelo de Criatura
 │   │   ├── moveModel.go         # Modelo de Movimento
@@ -39,9 +43,6 @@ crud_creatures/
 │   │       ├── typeEnum.go      # Enum de Tipos (Fire, Water, etc)
 │   │       └── categoryEnum.go  # Enum de Categorias de Movimento
 │   ├── repository/
-│   │   ├── interface/
-│   │   │   ├── creatureInferface.go
-│   │   │   └── moveInterface.go
 │   │   ├── creatureRepository.go # Acesso a dados de Criaturas
 │   │   └── moveRepository.go     # Acesso a dados de Movimentos
 │   └── service/
