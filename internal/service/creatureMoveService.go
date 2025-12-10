@@ -2,7 +2,7 @@ package service
 
 import (
 	apperrors "crud_creatures/internal/errors"
-	repositoryinterface "crud_creatures/internal/repository/interface"
+	repositoryinterface "crud_creatures/internal/interface"
 )
 
 type CreatureMoveService struct {
@@ -28,6 +28,11 @@ func (s *CreatureMoveService) AddMoveToCreatureService(creatureId int, moveId in
 
 	if !moveExists {
 		return apperrors.ErrMoveNoExists
+	}
+
+	moveCount, err := s.RepoCreMove.CountMovesByCreature(creatureId)
+	if moveCount >= 8 {
+		return apperrors.ErrMoveLimit
 	}
 
 	return s.RepoCreMove.AddMoveToCreature(creatureId, moveId)

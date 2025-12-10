@@ -30,6 +30,7 @@ var (
 	ErrNegativeWeightProhibited   = errors.New("peso não pode ser negativo")
 	ErrCreatureNoExists           = errors.New("criatura não existe no banco de dados")
 	ErrCreatureListEmpty          = errors.New("lista de criaturas está vazia")
+	ErrMoveLimit                  = errors.New("criatura já tem 8 limites")
 )
 
 /* REGION ERRORS */

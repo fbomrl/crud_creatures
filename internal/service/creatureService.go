@@ -2,9 +2,9 @@ package service
 
 import (
 	apperrors "crud_creatures/internal/errors"
+	repositoryinterface "crud_creatures/internal/interface"
 	"crud_creatures/internal/models"
 	"crud_creatures/internal/models/enums"
-	repositoryinterface "crud_creatures/internal/repository/interface"
 	"strings"
 )
 
