@@ -53,3 +53,19 @@ func (repo *CreatureMoveRepository) MoveExists(id int) (bool, error) {
 
 	return true, nil
 }
+
+func (repo *CreatureMoveRepository) CountMovesByCreature(idCreature int) (int, error) {
+	var qntdMoves int
+
+	err := repo.DB.QueryRow(`
+        SELECT COUNT(*) 
+        FROM CREATURE_MOVE
+        WHERE id_creature = ?
+    `, idCreature).Scan(&qntdMoves)
+
+	if err != nil {
+		return 0, err
+	}
+
+	return qntdMoves, nil
+}
