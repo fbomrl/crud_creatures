@@ -2,7 +2,11 @@ module crud_creatures
 
 go 1.24.5
 
-require github.com/denisenkom/go-mssqldb v0.12.3
+require (
+	github.com/denisenkom/go-mssqldb v0.12.3
+	github.com/golang-migrate/migrate/v4 v4.15.2
+	github.com/joho/godotenv v1.3.0
+)
 
 require (
 	github.com/Azure/go-autorest v14.2.0+incompatible // indirect
@@ -11,9 +15,10 @@ require (
 	github.com/Azure/go-autorest/logger v0.2.1 // indirect
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.2 // indirect
-	github.com/golang-migrate/migrate/v4 v4.19.1 // indirect
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
-	github.com/microsoft/go-mssqldb v1.0.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/crypto v0.45.0 // indirect
 )
