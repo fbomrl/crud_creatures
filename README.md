@@ -15,7 +15,7 @@ Sistema de CRUD desenvolvido em Go para armazenar e gerenciar:
 ## 🛠️ Tecnologias
 
 - **Language**: Go 1.x
-- **Database**: MySQL/MariaDB
+- **Database**: SqlServer
 - **Architecture**: Clean Architecture
 - **Patterns**: Repository Pattern, Service Layer
 
