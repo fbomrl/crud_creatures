@@ -1,0 +1,21 @@
+CREATE TABLE creatures (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  id_general INT NULL,
+  id_region INT NULL,
+  region_number INT NULL,
+  name NVARCHAR(200) NOT NULL,
+  type_primary INT NULL,
+  type_secondary INT NULL,
+  ability_attack NVARCHAR(200) NULL,
+  ability_attack_desc NVARCHAR(MAX) NULL,
+  ability_def NVARCHAR(200) NULL,
+  ability_def_desc NVARCHAR(MAX) NULL,
+  species NVARCHAR(200) NULL,
+  height INT NULL,
+  weight FLOAT NULL,
+  habitat NVARCHAR(200) NULL,
+  feeding NVARCHAR(200) NULL,
+  evolution INT NULL,
+  description NVARCHAR(MAX) NULL,
+  inspiration NVARCHAR(200) NULL
+);

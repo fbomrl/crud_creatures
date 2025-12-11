@@ -45,10 +45,58 @@ crud_creatures/
 │   ├── repository/
 │   │   ├── creatureRepository.go # Acesso a dados de Criaturas
 │   │   └── moveRepository.go     # Acesso a dados de Movimentos
-│   └── service/
-│       ├── creatureService.go    # Regras de negócio - Criaturas
-│       └── moveService.go        # Regras de negócio - Movimentos
-├── migrations/                   # Scripts de migração do banco
+````markdown
+# CRUD Creatures API
+
+API REST para gerenciamento de criaturas, incluindo seus atributos, movimentos e regiões.
+
+Projeto de estudos baseado em criaturas originais desenhadas pelo autor, com objetivo de catalogar e gerenciar informações detalhadas de cada criatura.
+
+## 🎯 Sobre o Projeto
+
+Sistema de CRUD desenvolvido em Go para armazenar e gerenciar:
+- **Criaturas**: Informações completas incluindo tipos, habilidades, habitat, evolução
+- **Movimentos**: Ataques e habilidades que as criaturas podem aprender
+- **Regiões**: Localizações onde as criaturas habitam
+- **Relações**: Vínculo entre criaturas e seus movimentos
+
+## 🛠️ Tecnologias
+
+- **Language**: Go 1.x
+- **Database**: MySQL/MariaDB (configurar conforme ambiente)
+- **Architecture**: Clean Architecture
+- **Patterns**: Repository Pattern, Service Layer
+
+## 📁 Estrutura do Projeto
+
+```
+crud_creatures/
+├── cmd/
+│   └── api/
+│       └── main.go
+├── internal/
+│   ├── database/
+│   │   └── sqlServer.go
+│   ├── errors/
+│   │   └── errors.go
+   ├── handlers/
+   │   ├── moveHandlers.go
+   │   └── creatureHandlers.go
+   ├── models/
+   │   ├── creatureModel.go
+   │   ├── moveModel.go
+   │   ├── regionModel.go
+   │   ├── creatureMoveModel.go
+   │   └── enums/
+   │       ├── typeEnum.go
+   │       └── categoryEnum.go
+   ├── repository/
+   │   ├── creatureRepository.go
+   │   └── moveRepository.go
+   └── services/
+         ├── creatureService.go
+         └── moveService.go
+├── migration/                   # Scripts de migração do banco
 ├── pkg/                          # Pacotes reutilizáveis
 ├── config/                       # Configurações da aplicação
 └── go.mod                        # Dependências Go
@@ -183,13 +231,11 @@ O projeto segue o padrão **Clean Architecture** com separação de responsabili
 - **Models**: Estruturas de dados
 - **Repository**: Acesso ao banco de dados (SQL queries)
 - **Service**: Regras de negócio e validações
-- **Handlers**: Controllers HTTP (a implementar)
+- **Handlers**: Controllers HTTP
 
-**Fluxo de dados:**
+Fluxo de dados:
 ```
 HTTP Request → Handler → Service → Repository → Database
-                  ↓
-            Validações
 ```
 
 ## 📄 Licença
@@ -199,4 +245,6 @@ HTTP Request → Handler → Service → Repository → Database
 ---
 
 **Projeto de Estudos** - Criado para fins educacionais e desenvolvimento de portfólio.
+
+````
 
