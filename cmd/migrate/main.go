@@ -1,10 +1,9 @@
 package main
 
 import (
+	"crud_creatures/internal/database"
 	"log"
 	"os"
-
-	"crud_creatures/internal/database"
 
 	"github.com/joho/godotenv"
 )
@@ -17,15 +16,25 @@ func main() {
 	user := os.Getenv("DB_USER")
 	pass := os.Getenv("DB_PASSWORD")
 	host := os.Getenv("DB_HOST")
+	instance := os.Getenv("DB_INSTANCE")
 	name := os.Getenv("DB_NAME")
 
 	if user == "" || pass == "" || host == "" || name == "" {
-		log.Fatal("missing DB env vars")
+		log.Fatalf("missing DB env vars (USER=%s HOST=%s NAME=%s)", user, host, name)
 	}
 
-	if err := database.EnsureDBAndMigrate(user, pass, host, name, "migration"); err != nil {
+	log.Printf("➡️ Connecting with:\nHOST=%s\nINSTANCE=%s\nDB=%s\n", host, instance, name)
+
+	if err := database.EnsureDBAndMigrate(
+		user,
+		pass,
+		host,
+		instance,
+		name,
+		"migration",
+	); err != nil {
 		log.Fatal(err)
 	}
 
-	log.Println("migrations applied")
+	log.Println("migratrion aplicada com sucesso!")
 }
