@@ -136,7 +136,7 @@ O projeto fornece um pequeno comando Go para criar o banco (se necessário) e ap
 ```powershell
 # PowerShell (Windows)
 $env:DB_USER='sa'
-$env:DB_PASSWORD='sua_senha'
+$env:DB_PASSWORD=sua_senha_aqui
 $env:DB_HOST='localhost'
 $env:DB_INSTANCE='SQLEXPRESS' # opcional
 $env:DB_NAME='crud_creatures'
@@ -146,7 +146,7 @@ go run ./cmd/migrate
 ```bash
 # Bash (Linux/macOS)
 export DB_USER='sa'
-export DB_PASSWORD='sua_senha'
+export DB_PASSWORD=sua_senha_aqui
 export DB_HOST='localhost'
 export DB_INSTANCE='SQLEXPRESS' # opcional
 export DB_NAME='crud_creatures'
