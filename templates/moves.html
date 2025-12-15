@@ -1,0 +1,21 @@
+{{define "moves"}}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Moves</title>
+</head>
+<body>
+  <h1>Moves</h1>
+  {{if .}}
+    <ul>
+    {{range .}}
+      <li>{{.Name}}</li>
+    {{end}}
+    </ul>
+  {{else}}
+    <p>No moves</p>
+  {{end}}
+</body>
+</html>
+{{end}}

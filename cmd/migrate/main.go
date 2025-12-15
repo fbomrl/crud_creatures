@@ -20,9 +20,6 @@ func main() {
 	instance := os.Getenv("DB_INSTANCE")
 	name := os.Getenv("DB_NAME")
 
-	    dsn := /* montar DSN conforme internal/database.SqlServer espera, ex: sqlserver://... */
-
-
 	if user == "" || pass == "" || host == "" || name == "" {
 		log.Fatalf("missing DB env vars (USER=%s HOST=%s NAME=%s)", user, host, name)
 	}

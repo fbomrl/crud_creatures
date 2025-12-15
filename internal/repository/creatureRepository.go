@@ -34,7 +34,7 @@ func (repo *CreatureRepository) CreateCreature(creature models.Creature) error {
 	return err
 }
 
-func (repo *CreatureRepository) DeleteCreature(creature *models.Creature) error {
+func (repo *CreatureRepository) DeleteCreature(creature models.Creature) error {
 	_, err := repo.DB.Exec(
 		"DELETE FROM CREATURE WHERE id = @p1",
 		creature.Id,
@@ -42,7 +42,7 @@ func (repo *CreatureRepository) DeleteCreature(creature *models.Creature) error 
 	return err
 }
 
-func (repo *CreatureRepository) UpdateCreature(creature *models.Creature) error {
+func (repo *CreatureRepository) UpdateCreature(creature models.Creature) error {
 	_, err := repo.DB.Exec(
 		`UPDATE CREATURE SET 
 			id_general = @p1, 

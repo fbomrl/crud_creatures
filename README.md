@@ -130,8 +130,27 @@ CREATE DATABASE creatures_db;
 ```
 
 4. **Executar migrations:**
+
+O projeto fornece um pequeno comando Go para criar o banco (se necessário) e aplicar as migrations localmente:
+
+```powershell
+# PowerShell (Windows)
+$env:DB_USER='sa'
+$env:DB_PASSWORD='sua_senha'
+$env:DB_HOST='localhost'
+$env:DB_INSTANCE='SQLEXPRESS' # opcional
+$env:DB_NAME='crud_creatures'
+go run ./cmd/migrate
+```
+
 ```bash
-# (Instruções de migração serão adicionadas)
+# Bash (Linux/macOS)
+export DB_USER='sa'
+export DB_PASSWORD='sua_senha'
+export DB_HOST='localhost'
+export DB_INSTANCE='SQLEXPRESS' # opcional
+export DB_NAME='crud_creatures'
+go run ./cmd/migrate
 ```
 
 5. **Configurar variáveis de ambiente:**

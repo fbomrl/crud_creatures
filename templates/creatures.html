@@ -1,0 +1,21 @@
+{{define "creatures"}}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Creatures</title>
+</head>
+<body>
+  <h1>Creatures</h1>
+  {{if .}}
+    <ul>
+    {{range .}}
+      <li>{{.Name}}</li>
+    {{end}}
+    </ul>
+  {{else}}
+    <p>No creatures</p>
+  {{end}}
+</body>
+</html>
+{{end}}
